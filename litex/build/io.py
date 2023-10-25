@@ -217,7 +217,7 @@ class DDRTristate(Special):
 # Clock Reset Generator ----------------------------------------------------------------------------
 
 class CRG(Module):
-    def __init__(self, clk, rst=0):
+    def __init__(self, clk, rst=0, gen_sys2x=False):
         self.clock_domains.cd_sys = ClockDomain()
         self.clock_domains.cd_por = ClockDomain(reset_less=True)
 
@@ -229,8 +229,20 @@ class CRG(Module):
         # Power on Reset (vendor agnostic)
         int_rst = Signal(reset=1)
         self.sync.por += int_rst.eq(rst)
-        self.comb += [
-            self.cd_sys.clk.eq(clk),
-            self.cd_por.clk.eq(clk),
-            self.cd_sys.rst.eq(int_rst)
-        ]
+        
+        if gen_sys2x:
+            clk_div2 = Signal(reset=0)
+            self.clock_domains.cd_sys2x = ClockDomain(reset_less=True)
+            self.sync.sys2x += clk_div2.eq(~clk_div2)
+            self.comb += [
+                self.cd_sys2x.clk.eq(clk),
+                self.cd_sys.clk.eq(clk_div2),
+                self.cd_por.clk.eq(clk_div2)
+            ]
+        else:
+            self.comb += [
+                self.cd_sys.clk.eq(clk),
+                self.cd_por.clk.eq(clk)
+            ]
+
+        self.comb += self.cd_sys.rst.eq(int_rst)

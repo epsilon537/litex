@@ -82,7 +82,7 @@ git_repos = {
     # ----------------------
     "liteiclink":   GitRepo(url="https://github.com/enjoy-digital/", tag=True),
     "liteeth":      GitRepo(url="https://github.com/enjoy-digital/", tag=True),
-    "litedram":     GitRepo(url="https://github.com/enjoy-digital/", tag=True),
+    "litedram":     GitRepo(url="https://github.com/epsilon537/litedram", tag=True),
     "litepcie":     GitRepo(url="https://github.com/enjoy-digital/", tag=True),
     "litesata":     GitRepo(url="https://github.com/enjoy-digital/", tag=True),
     "litesdcard":   GitRepo(url="https://github.com/enjoy-digital/", tag=True),
