@@ -20,6 +20,7 @@ copyright = '{}, {}'
 author = '{}'
 extensions = [
     'sphinx.ext.autosectionlabel',
+    'sphinx_markdown_builder',
     'sphinxcontrib.wavedrom',{}
 ]
 templates_path = ['_templates']
